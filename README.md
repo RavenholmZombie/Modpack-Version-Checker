@@ -8,6 +8,8 @@ Pack Gate was born out of the need for a simple modpack version checker that did
 
 A simple mod that just does one thing: Checks for modpack updates.
 
+**This is NOT a server mod, it is client-sided only! It WILL crash servers.**
+
 ### How does it work?
 Pack Gate works by calling out to a remotely-hosted file the modpack author created and compares the version in that file with the version specified in Pack Gate's config file.
 
