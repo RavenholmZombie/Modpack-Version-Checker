@@ -14,7 +14,8 @@ public final class Config {
     /** auto | json | text */
     public static final ForgeConfigSpec.ConfigValue<String> FORMAT;
 
-    static {
+    static
+    {
         ForgeConfigSpec.Builder b = new ForgeConfigSpec.Builder();
 
         // Compact, single section
@@ -34,7 +35,9 @@ public final class Config {
 
     private Config() {}
 
-    public static void register() {
+    public static void register()
+    {
+        // Yes, I get that .get() is on its way out, but this mod is only for 1.20.1 so shut.
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CLIENT_SPEC, "packgate-client.toml");
     }
 }

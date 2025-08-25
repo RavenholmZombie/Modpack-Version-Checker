@@ -43,7 +43,8 @@ public class Main
             modpackName = "Unnamed Modpack";
         }
 
-        event.enqueueWork(() -> {
+        event.enqueueWork(() ->
+        {
             String cfgVersion = Config.MODPACK_VERSION.get();
             final String currentVersion = (cfgVersion != null && !cfgVersion.isBlank())
                     ? cfgVersion.trim()

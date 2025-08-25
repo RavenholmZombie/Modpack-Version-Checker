@@ -12,7 +12,8 @@ import net.minecraft.util.FormattedCharSequence;
 import java.net.URI;
 import java.util.List;
 
-public class VersionBlockerScreen extends Screen {
+public class VersionBlockerScreen extends Screen
+{
     private final Component message;
     private final String downloadUrl;
     private final String packDownloadUrl;
@@ -25,7 +26,8 @@ public class VersionBlockerScreen extends Screen {
     private int quitBtnY;
     private int maxWidth;
 
-    public VersionBlockerScreen(Component title, Component message, String downloadUrl, String packDownloadUrl) {
+    public VersionBlockerScreen(Component title, Component message, String downloadUrl, String packDownloadUrl)
+    {
         super(title);
         this.message = message;
         this.downloadUrl = downloadUrl;
@@ -33,8 +35,8 @@ public class VersionBlockerScreen extends Screen {
     }
 
     @Override
-    protected void init() {
-        // --- Layout constants ---
+    protected void init()
+    {
         maxWidth = Math.min(this.width - 60, 380);
         int lineGap = this.font.lineHeight + 2;
         int titleGap = 8;
@@ -43,41 +45,48 @@ public class VersionBlockerScreen extends Screen {
         int buttonH = 20;
         int buttonsBlock = buttonH * 2 + buttonGap;
 
-        // Wrap text & measure
         wrapped = this.font.split(this.message, maxWidth);
         int messageHeight = Math.max(lineGap, wrapped.size() * lineGap);
 
-        // Compute a top padding so everything is vertically centered, with a min margin
         int total = this.font.lineHeight + titleGap + messageHeight + textToButtonsGap + buttonsBlock;
         int top = Math.max(20, (this.height - total) / 2);
 
-        // Y positions
         titleY = top;
         messageY = titleY + this.font.lineHeight + titleGap;
         openBtnY = messageY + messageHeight + textToButtonsGap;
         quitBtnY = openBtnY + buttonH + buttonGap;
 
-        // Buttons (centered)
         int centerX = this.width / 2;
         int btnW = 220;
 
-        this.clearWidgets(); // in case of resize
+        this.clearWidgets();
 
         String buttonHref = (packDownloadUrl != null && !packDownloadUrl.isBlank())
                 ? packDownloadUrl
                 : downloadUrl;
 
-        this.addRenderableWidget(Button.builder(Component.literal("Open Download Page"), b -> {
-            try { Util.getPlatform().openUri(new URI(buttonHref)); } catch (Exception ignored) {}
+        this.addRenderableWidget(Button.builder(Component.literal("Open Download Page"), b ->
+        {
+            try
+            {
+                Util.getPlatform().openUri(new URI(buttonHref));
+            }
+            catch
+            (Exception ignored)
+            {
+
+            }
         }).bounds(centerX - btnW / 2, openBtnY, btnW, buttonH).build());
 
-        this.addRenderableWidget(Button.builder(Component.literal("Quit Game"), b -> {
+        this.addRenderableWidget(Button.builder(Component.literal("Quit Game"), b ->
+        {
             Minecraft.getInstance().stop();
         }).bounds(centerX - btnW / 2, quitBtnY, btnW, buttonH).build());
     }
 
     @Override
-    public void render(GuiGraphics gg, int mouseX, int mouseY, float partialTick) {
+    public void render(GuiGraphics gg, int mouseX, int mouseY, float partialTick)
+    {
         this.renderBackground(gg);
 
         // Title
@@ -86,7 +95,8 @@ public class VersionBlockerScreen extends Screen {
         // Wrapped message
         int y = messageY;
         int centerX = this.width / 2;
-        for (FormattedCharSequence line : wrapped) {
+        for (FormattedCharSequence line : wrapped)
+        {
             gg.drawCenteredString(this.font, line, centerX, y, 0xDDDDDD);
             y += this.font.lineHeight + 2;
         }

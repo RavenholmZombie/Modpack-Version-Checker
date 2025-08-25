@@ -1,6 +1,5 @@
 package com.mesabrook.rzcraft;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.TitleScreen;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ScreenEvent;
@@ -21,18 +20,20 @@ public class ClientEvents
         if (event.getNewScreen() instanceof TitleScreen)
         {
             var res = VersionCheck.getNowOrNull();
-            if (res == null || res.state == VersionCheck.State.RUNNING) {
-                // Swap to a small waiting screen until the check completes.
+            if (res == null || res.state == VersionCheck.State.RUNNING)
+            {
                 event.setNewScreen(new CheckingScreen((TitleScreen) event.getNewScreen()));
                 handledTitleOnce = true;
                 return;
             }
 
-            if (res.state == VersionCheck.State.OUTDATED) {
+            if (res.state == VersionCheck.State.OUTDATED)
+            {
                 event.setNewScreen(Screens.makeBlocker(res));
                 handledTitleOnce = true;
-            } else {
-                // OK or ERROR (your policy: allow play on ERROR; change if you want fail-closed)
+            }
+            else
+            {
                 handledTitleOnce = false;
             }
         }
