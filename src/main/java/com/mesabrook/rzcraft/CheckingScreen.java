@@ -38,6 +38,11 @@ public class CheckingScreen extends Screen {
             case OK -> {
                 LOG.info("Result OK → returning to previous screen.");
                 minecraft.setScreen(nextIfOk);
+
+                String name = Config.MODPACK_NAME.get();
+                String pack = (name == null || name.isBlank()) ? "Modpack" : name.trim();
+                // res.current is the local/installed version
+                UpToDateToast.show(pack, res.current);
             }
             case ERROR -> {
                 LOG.warn("Result ERROR → policy allows play; returning to previous screen.");
